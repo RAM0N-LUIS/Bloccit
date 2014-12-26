@@ -46,3 +46,5 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+#add bootstrap-sass
+gem 'bootstrap-sass', '~> 3.1.1'
