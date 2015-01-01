@@ -9,4 +9,6 @@ if Rails.env.development?
     domain:         'heroku.com',
     enable_starttls_auto: true
     }
+    # Override Action Mailer's 'silent errors' in development
+    config.action_mailer.raise_delivery_errors = true
 end
