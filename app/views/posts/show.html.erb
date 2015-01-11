@@ -6,10 +6,10 @@
   		<%= image_tag(@post.user.avatar.tiny.url) if @post.user.avatar? %>
   		submitted <%= time_ago_in_words(@post.created_at) %> ago by <%= @post.user.name %>
   	</small>
-    <small>
-      %= image_tag(@post.image.thumb.url) if post.image? %>
-    </small>
-    <p><%= @post.markdown_body %></p>
+    <div class="form-group">
+      <%= @post.markdown_body %>
+      <%= image_tag(@post.image.url) if @post.image? %>
+    </div>
   </div>
   <div class="col-md-4">
     <% if policy(@post).edit? %>
