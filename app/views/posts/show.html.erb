@@ -9,7 +9,10 @@
     <div class="form-group">
       <%= @post.markdown_body %>
       <%= image_tag(@post.image.url) if @post.image? %>
-     
+      <% @comments.each do |comment| %>
+        <%= render "comments/form" %>
+      <% end %>
+      <%= render "comments/comment" %>
     </div>
   </div>
   <div class="col-md-4">

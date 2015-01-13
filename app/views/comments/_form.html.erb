@@ -9,7 +9,7 @@
 			</ul>
 		</div>
 	<% end %>
-	<div class=form_group_tag(comment.errors[:body])>
+	<div class= "<%= form_group_tag(comment.errors[:body]) %>" >
 		<%= f.label :body %>
     <%= f.text_area :body, rows: 4, class: 'form-control', placeholder: "Post a comment..." %>
 	</div>
