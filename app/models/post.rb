@@ -1,4 +1,5 @@
 class Post < ActiveRecord::Base
+
   has_many :comments
   belongs_to :user
   belongs_to :topic
@@ -20,6 +21,9 @@ class Post < ActiveRecord::Base
   	render_as_markdown body
   end
 
+  def pagenumbers_post
+    total_pages
+  end
   
 
   private
