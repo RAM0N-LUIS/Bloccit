@@ -5,7 +5,7 @@ class Post < ActiveRecord::Base
   belongs_to :user
   belongs_to :topic
   
-  default_scope { order('created_at DESC') }
+  default_scope { order('rank DESC') }
 
   validates :title, length: { minimum: 5 }, presence: true
   validates :body, length: { minimum: 20 }, presence: true
@@ -13,6 +13,8 @@ class Post < ActiveRecord::Base
   #validates :user, presence: true
 
   mount_uploader :image, ImageUploader
+  
+  after_create :create_vote
 
   def up_votes
     votes.where(value: 1).count
@@ -25,7 +27,13 @@ class Post < ActiveRecord::Base
   def points
     votes.sum(:value)
   end
-
+  
+  def update_rank
+    age_in_days = (created_at - Time.new(1970,1,1)) / (60 * 60 * 24)
+    new_rank = points + age_in_days
+    update_attribute(:rank, new_rank)
+  end
+  
   def markdown_title
   	render_as_markdown title
   end
@@ -34,17 +42,17 @@ class Post < ActiveRecord::Base
   	render_as_markdown body
   end  
 
-
-
-
-
   private
 
-  def render_as_markdown(text)
-  	renderer = Redcarpet::Render::HTML.new
-	  extensions = {fenced_code_blocks: true, autolink: true, strikethrough: true, quote: true}
-	  redcarpet = Redcarpet::Markdown.new(renderer,extensions)
-	  (redcarpet.render text).html_safe
+    def render_as_markdown(text)
+  	  renderer = Redcarpet::Render::HTML.new
+	    extensions = {fenced_code_blocks: true, autolink: true, strikethrough: true, quote: true}
+	    redcarpet = Redcarpet::Markdown.new(renderer,extensions)
+	    (redcarpet.render text).html_safe
+    end
+  
+  def create_vote
+    current_user.votes.create(value: 1, post: @post)
   end
 
 end
