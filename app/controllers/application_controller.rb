@@ -15,7 +15,11 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << :name
   end
-    
+  
+  def can_moderate?
+    (record.user == user || user.admin? || user.moderator?)
+  end
+
     
   
 end
