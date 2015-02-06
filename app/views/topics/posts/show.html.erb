@@ -14,7 +14,7 @@
     </div>
     <small>
       <h4> Comments </h4>
-        <%= render @comments %>
+        <%= render partial: 'comments/comment', collection: @comments %>
         <% if current_user %>
           <%= render partial: 'comments/form', locals: { topic: @topic, post: @post, comment: @comment } %>
         <% end %>
