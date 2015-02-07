@@ -45,6 +45,8 @@ gem 'fog'
 gem 'will_paginate', '~> 3.0.5'
 gem 'capybara'
 gem 'newrelic_rpm'
+gem 'database_cleaner'
+gem 'factory_girl_rails', '~> 4.0'
 
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
