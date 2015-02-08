@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  respond_to :html, :js
           
   def create
 
@@ -32,8 +33,10 @@ class CommentsController < ApplicationController
       flash[:notice] = "Comment couldn't be deleted.  Try again."
     end
 
-    redirect_to [@topic, @post]
-  
+    respond_with(@comment) do |format|
+      format.html { redirect_to [@post.topic, @post] }
+    end
+
   end
 
   
